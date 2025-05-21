@@ -1,6 +1,31 @@
-# blinkdoro
+# BlinkDoro
 
-A new Flutter project.
+A Pomodoro timer app with blink reminders to help maintain eye health during long work sessions.
+
+## Development Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+3. Set up Git hooks:
+
+   **Windows:**
+   ```powershell
+   # Run the PowerShell setup script
+   .\scripts\setup-hooks.ps1
+   ```
+
+   **Linux/Unix/MacOS:**
+   ```bash
+   # Make the setup script executable
+   chmod +x scripts/setup-hooks.sh
+   # Run the setup script
+   ./scripts/setup-hooks.sh
+   ```
+
+The Git hooks will run tests automatically before each commit when you modify files in the `lib` or `test` directories.
 
 ## Getting Started
 

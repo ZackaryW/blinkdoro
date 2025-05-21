@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Get list of staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^(lib/|test/)')
+
+# If no lib or test files are staged, skip tests
+if [ -z "$STAGED_FILES" ]; then
+  echo "No lib or test files changed, skipping tests..."
+  exit 0
+fi
+
+echo "Running tests before commit..."
+flutter test
+
+# Store the exit code of the test command
+RESULT=$?
+
+# If tests failed, prevent the commit
+if [ $RESULT -ne 0 ]; then
+  echo "❌ Tests failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ All tests passed!"
+exit 0 

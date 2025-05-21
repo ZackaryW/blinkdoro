@@ -2,56 +2,64 @@
 
 ## Current Focus
 - Implementing core Pomodoro timer functionality
-- Setting up basic blink reminder system
-- Establishing project structure
-- Designing UI components
+- Building user interface with Material Design 3
+- Setting up desktop window management
+- Creating configuration window for Pomodoro and blink settings
 
 ## Recent Changes
-- Created initial project structure
-- Implemented basic timer properties in `core.dart`
-- Added blink reminder configuration
-- Set up callback system for UI updates
-- Defined UI requirements and patterns
+1. Core Timer Implementation
+   - Added Pomodoro timer logic
+   - Implemented blink reminder system
+   - Added state management for timer controls
+
+2. User Interface
+   - Created clean, minimal UI design
+   - Implemented timer display
+   - Added control buttons (Start, Pause, Resume, Reset, Skip)
+   - Fixed button visibility logic
+
+3. Desktop Integration
+   - Added window size management
+   - Set fixed window dimensions (400x600)
+   - Implemented window centering
+
+4. Configuration System
+   - Added prepWnd.dart for settings management
+   - Implemented time unit toggle (seconds/minutes)
+   - Created configuration persistence
 
 ## Active Decisions
-1. Timer Configuration
-   - Default work time: 90 minutes
-   - Default break time: 25 minutes
-   - Default long break time: 60 minutes
-   - Long break interval: Every 4 sessions
-   - Time display format: HH:MM:SS
+1. Window Management
+   - Using `window_manager` package for desktop control
+   - Fixed window size for better UX
+   - Window centering for consistent appearance
 
-2. Blink System
-   - Random intervals: 5-10 minutes
-   - Blink duration: 10 seconds
-   - Full-screen overlay with eye symbol
-   - Sound notifications
-   - Auto-dismissing reminders
+2. UI/UX Design
+   - Material Design 3 for modern look
+   - Simple, focused interface
+   - Clear visual hierarchy
 
-3. UI Design
-   - Centered timer display
-   - Basic control buttons (Pause/Resume, Reset, Skip Break)
-   - Full-screen blink reminders
-   - Session type indicators
+3. Configuration Management
+   - Store all time values in seconds internally
+   - Allow user to view/edit in preferred units
+   - Separate configuration window for better organization
 
 ## Next Steps
-1. Complete core timer implementation
-   - Implement start/stop functionality
-   - Add session transition logic
-   - Handle timer state management
-   - Format time display (HH:MM:SS)
+1. Testing
+   - Implement comprehensive test suite
+   - Add widget tests for UI components
+   - Set up pre-commit hooks
 
-2. Develop blink reminder system
-   - Implement random interval generation
-   - Create full-screen overlay
-   - Add sound notification system
-   - Handle auto-dismiss functionality
+2. Features
+   - Add settings for customizing timer durations
+   - Implement sound notifications
+   - Add system tray integration
+   - Complete configuration window implementation
 
-3. Create basic UI
-   - Timer display component
-   - Control button panel
-   - Blink reminder overlay
-   - Session indicators
+3. Polish
+   - Add animations for state transitions
+   - Improve visual feedback
+   - Add keyboard shortcuts
 
 ## Current Challenges
 - Ensuring accurate timer functionality
@@ -59,9 +67,11 @@
 - Managing full-screen overlays
 - Handling sound notifications
 - Maintaining clean separation between core logic and UI
+- Managing configuration state and persistence
 
 ## Project Insights
 - Simple architecture is key to maintainability
 - Clear separation between timer and blink systems
 - Focus on user experience in notification design
-- Importance of non-intrusive but noticeable reminders 
+- Importance of non-intrusive but noticeable reminders
+- Need for flexible configuration options 

@@ -1,32 +1,34 @@
 # BlinkDoro Project Brief
 
-## Project Overview
-BlinkDoro is a Pomodoro timer application with a unique feature: random blink reminders. It helps users maintain focus during work sessions while ensuring they take regular eye breaks.
+## Overview
+BlinkDoro is a Pomodoro timer application with an integrated blink reminder system. It helps users maintain focus through work sessions while ensuring regular eye breaks to prevent eye strain.
 
 ## Core Requirements
-1. Pomodoro Timer Functionality
-   - Work sessions (default 90 minutes)
-   - Short breaks (default 25 minutes)
-   - Long breaks (default 60 minutes)
-   - Long break interval (every 4 sessions)
+1. Pomodoro Timer
+   - 90-minute work sessions
+   - 25-minute short breaks
+   - 60-minute long breaks after 4 work sessions
+   - Start, pause, resume, and reset functionality
 
 2. Blink Reminder System
    - Random intervals between 5-10 minutes
    - 10-second blink reminder duration
-   - Customizable blink intervals
+   - Non-intrusive notifications
 
-## Project Structure
-- `lib/core.dart`: Core timer and blink logic
-- `lib/main.dart`: Application entry point
-- `lib/gui.dart`: User interface implementation
+3. User Interface
+   - Clean, minimal design
+   - Large, readable timer display
+   - Intuitive control buttons
+   - Desktop-optimized window size (400x600)
 
 ## Technical Stack
-- Flutter/Dart for cross-platform development
-- Simple state management
-- Clean architecture with separation of concerns
+- Flutter for cross-platform development
+- Material Design 3 for UI components
+- Window Manager for desktop window control
 
 ## Success Criteria
-1. Reliable Pomodoro timer functionality
-2. Effective blink reminder system
-3. Clean, intuitive user interface
-4. Cross-platform compatibility 
+- Smooth timer operation
+- Reliable blink reminders
+- Intuitive user experience
+- Cross-platform compatibility
+- Proper window management on desktop 

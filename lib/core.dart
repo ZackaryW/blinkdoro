@@ -193,4 +193,21 @@ class BlinkDoro {
     _timer?.cancel();
     _blinkTimer?.cancel();
   }
+
+  void updateConfig(Map<String, int> newConfig) {
+    // Update configuration values
+    pomodoroWorkTime = newConfig['workDuration'] ?? pomodoroWorkTime;
+    pomodoroBreakTime = newConfig['shortBreak'] ?? pomodoroBreakTime;
+    pomodoroLongBreakTime = newConfig['longBreak'] ?? pomodoroLongBreakTime;
+    pomodoroLongBreakInterval = newConfig['sessionsUntilLongBreak'] ?? pomodoroLongBreakInterval;
+    blinkRangeLow = newConfig['minBlinkInterval'] ?? blinkRangeLow;
+    blinkRangeHigh = newConfig['maxBlinkInterval'] ?? blinkRangeHigh;
+    blinkInterval = newConfig['blinkDuration'] ?? blinkInterval;
+
+    // If timer is not running, update the current duration
+    if (!isRunning) {
+      _currentTime = pomodoroWorkTime;
+      onTick?.call(_currentTime);
+    }
+  }
 }

@@ -1,73 +1,50 @@
-# Progress Tracking
+# Project Progress
 
-## What Works
-- Basic project structure
-- Core timer configuration
-- Blink reminder settings
-- Callback system structure
-- UI requirements defined
+## Completed Features
+1. Core Timer
+   - ✅ Basic Pomodoro timer implementation
+   - ✅ Work/break session management
+   - ✅ Timer controls (start, pause, resume, reset)
+   - ✅ Session type tracking
 
-## What's Left to Build
+2. User Interface
+   - ✅ Clean, minimal design
+   - ✅ Timer display
+   - ✅ Control buttons
+   - ✅ Material Design 3 integration
+   - ✅ Desktop window management
 
-### Core Module
-- [ ] Timer start/stop functionality
-- [ ] Session transition logic
-- [ ] Break management
-- [ ] Time formatting (HH:MM:SS)
-- [ ] Blink reminder implementation
-- [ ] State management
-- [ ] Error handling
+3. Development Setup
+   - ✅ Project structure
+   - ✅ Dependencies configuration
+   - ✅ Git hooks setup
 
-### Main Module
-- [ ] Application entry point
-- [ ] Platform initialization
-- [ ] Configuration loading
-- [ ] Error handling
-- [ ] Sound system setup
+## In Progress
+1. Testing
+   - 🔄 Unit tests for core functionality
+   - 🔄 Widget tests for UI components
+   - 🔄 Pre-commit hook implementation
 
-### GUI Module
-- [ ] Timer display (HH:MM:SS)
-- [ ] Control buttons
-  - [ ] Pause/Resume
-  - [ ] Reset
-  - [ ] Skip Break
-- [ ] Session indicators
-- [ ] Blink reminder overlay
-  - [ ] Full-screen eye symbol
-  - [ ] Sound integration
-  - [ ] Auto-dismiss
-- [ ] Settings interface
+2. Features
+   - 🔄 Settings customization
+   - 🔄 Sound notifications
+   - 🔄 System tray integration
 
-## Current Status
-- Project initialization complete
-- Basic structure established
-- Core configuration defined
-- UI requirements specified
-- Ready for implementation phase
+## Pending Features
+1. Polish
+   - ⏳ Animations
+   - ⏳ Keyboard shortcuts
+   - ⏳ Visual feedback improvements
+
+2. Additional Features
+   - ⏳ Statistics tracking
+   - ⏳ Custom themes
+   - ⏳ Export/import settings
 
 ## Known Issues
-- None reported yet (project in initial phase)
+1. None currently tracked
 
-## Evolution of Decisions
-1. Initial Architecture
-   - Decided on simple three-module structure
-   - Chose callback-based communication
-   - Established clear separation of concerns
-
-2. Timer Configuration
-   - Selected longer work sessions (90 min)
-   - Standard break durations
-   - Configurable intervals
-   - HH:MM:SS time format
-
-3. Blink System
-   - Random interval approach
-   - Full-screen overlay design
-   - Sound notification integration
-   - Auto-dismissing reminders
-
-4. UI Design
-   - Centered timer display
-   - Basic control panel
-   - Full-screen blink reminders
-   - Session type indicators 
+## Recent Improvements
+1. Fixed button visibility logic for Start/Pause/Resume
+2. Implemented proper window management for desktop
+3. Added Material Design 3 theming 

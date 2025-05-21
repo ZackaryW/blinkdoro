@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'core.dart';
 import 'prep_wnd.dart';
+import 'config_service.dart';
 
 class BlinkDoroGUI extends StatefulWidget {
   const BlinkDoroGUI({super.key});
@@ -14,27 +15,62 @@ class _BlinkDoroGUIState extends State<BlinkDoroGUI> {
   String _timeString = '90:00';
   bool _isRunning = false;
   bool _hasStarted = false;
-
-  // Default configuration
-  final Map<String, int> _config = {
-    'workDuration': 90 * 60, // 90 minutes
-    'shortBreak': 25 * 60,   // 25 minutes
-    'longBreak': 60 * 60,    // 60 minutes
-    'sessionsUntilLongBreak': 4,
-    'minBlinkInterval': 5 * 60,  // 5 minutes
-    'maxBlinkInterval': 10 * 60, // 10 minutes
-    'blinkDuration': 10,         // 10 seconds
-  };
+  bool _isBlinkActive = false;
+  Map<String, int> _config = {};
 
   @override
   void initState() {
     super.initState();
+    _initializeBlinkDoro();
+    _loadConfig();
+  }
+
+  Future<void> _loadConfig() async {
+    final config = await ConfigService.loadConfig();
+    setState(() {
+      _config = config;
+      _blinkDoro.updateConfig(config);
+    });
+  }
+
+  void _initializeBlinkDoro() {
     _blinkDoro = BlinkDoro(
       onTick: (seconds) {
         setState(() {
           final minutes = seconds ~/ 60;
           final remainingSeconds = seconds % 60;
           _timeString = '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
+        });
+      },
+      onComplete: () {
+        setState(() {
+          _isRunning = false;
+          _hasStarted = false;
+        });
+      },
+      onBreakComplete: () {
+        setState(() {
+          _isRunning = false;
+          _hasStarted = false;
+        });
+      },
+      onLongBreakComplete: () {
+        setState(() {
+          _isRunning = false;
+          _hasStarted = false;
+        });
+      },
+      onBlink: (blinkDoro) {
+        setState(() {
+          _isBlinkActive = true;
+        });
+        // Schedule blink end
+        Future.delayed(Duration(seconds: blinkDoro.blinkInterval), () {
+          if (mounted) {
+            setState(() {
+              _isBlinkActive = false;
+            });
+          }
         });
       },
     );
@@ -45,10 +81,10 @@ class _BlinkDoroGUIState extends State<BlinkDoroGUI> {
       context: context,
       builder: (context) => PrepWnd(
         config: _config,
-        onConfigChanged: (newConfig) {
+        onConfigChanged: (newConfig) async {
+          await ConfigService.saveConfig(newConfig);
           setState(() {
-            _config.addAll(newConfig);
-            // Update BlinkDoro with new configuration
+            _config = newConfig;
             _blinkDoro.updateConfig(newConfig);
           });
         },
@@ -71,19 +107,53 @@ class _BlinkDoroGUIState extends State<BlinkDoroGUI> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Timer Display
-            Text(
-              _timeString,
-              style: Theme.of(context).textTheme.displayLarge,
+      body: Column(
+        children: [
+          // Pomodoro count display
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 20),
+            color: _isBlinkActive 
+                ? Colors.black.withAlpha(179)
+                : Theme.of(context).scaffoldBackgroundColor,
+            child: Text(
+              'Group ${_blinkDoro.currentPomodoroCount + 1}/${_blinkDoro.pomodoroLongBreakInterval}',
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 40),
-            
-            // Control Buttons
-            Row(
+          ),
+          // Timer section
+          Expanded(
+            child: Stack(
+              children: [
+                Center(
+                  child: Text(
+                    _timeString,
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
+                ),
+                if (_isBlinkActive)
+                  Container(
+                    color: Colors.black.withOpacity(0.7),
+                    child: const Center(
+                      child: Icon(
+                        Icons.visibility,
+                        size: 100,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          
+          // Buttons section
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+            color: _isBlinkActive 
+                ? Colors.black.withAlpha(179)
+                : Theme.of(context).scaffoldBackgroundColor,
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (!_hasStarted)
@@ -124,7 +194,9 @@ class _BlinkDoroGUIState extends State<BlinkDoroGUI> {
                       _blinkDoro.reset();
                       _isRunning = false;
                       _hasStarted = false;
-                      _timeString = '90:00';
+                      final minutes = _blinkDoro.pomodoroWorkTime ~/ 60;
+                      final seconds = _blinkDoro.pomodoroWorkTime % 60;
+                      _timeString = '$minutes:${seconds.toString().padLeft(2, '0')}';
                     });
                   },
                   child: const Text('Reset'),
@@ -141,8 +213,8 @@ class _BlinkDoroGUIState extends State<BlinkDoroGUI> {
                   ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

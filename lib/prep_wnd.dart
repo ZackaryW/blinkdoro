@@ -20,16 +20,30 @@ class _PrepWndState extends State<PrepWnd> {
   final _formKey = GlobalKey<FormState>();
   final Map<String, TextEditingController> _controllers = {};
 
+  // Default configuration values
+  static final Map<String, int> _defaultConfig = {
+    'workDuration': 90 * 60,
+    'shortBreak': 25 * 60,
+    'longBreak': 60 * 60,
+    'sessionsUntilLongBreak': 4,
+    'minBlinkInterval': 5 * 60,
+    'maxBlinkInterval': 10 * 60,
+    'blinkDuration': 10,
+    'showInMinutes': 1, // 1 for true, 0 for false
+  };
+
   @override
   void initState() {
     super.initState();
-    _showInMinutes = true;
+    _showInMinutes = widget.config['showInMinutes'] == 1;
     _localConfig = Map.from(widget.config);
     // Initialize controllers
     for (final key in _localConfig.keys) {
-      _controllers[key] = TextEditingController(
-        text: _convertToDisplay(_localConfig[key]!).toString(),
-      );
+      if (key != 'showInMinutes') { // Skip showInMinutes for text controllers
+        _controllers[key] = TextEditingController(
+          text: _convertToDisplay(_localConfig[key]!).toString(),
+        );
+      }
     }
   }
 
@@ -49,6 +63,19 @@ class _PrepWndState extends State<PrepWnd> {
     return _showInMinutes ? (displayValue * 60) : displayValue;
   }
 
+  void _resetToDefaults() {
+    setState(() {
+      _localConfig = Map.from(_defaultConfig);
+      _showInMinutes = _localConfig['showInMinutes'] == 1;
+      // Update all controllers with default values
+      for (final key in _localConfig.keys) {
+        if (key != 'showInMinutes') { // Skip showInMinutes for text controllers
+          _controllers[key]?.text = _convertToDisplay(_localConfig[key]!).toString();
+        }
+      }
+    });
+  }
+
   void _saveConfig() {
     if (_formKey.currentState!.validate()) {
       widget.onConfigChanged(_localConfig);
@@ -66,18 +93,26 @@ class _PrepWndState extends State<PrepWnd> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SwitchListTile(
-                title: const Text('Show in Minutes'),
-                value: _showInMinutes,
-                onChanged: (value) {
-                  setState(() {
-                    _showInMinutes = value;
-                    // Update all form fields to reflect the new unit
-                    for (final key in _localConfig.keys) {
-                      _controllers[key]?.text = _convertToDisplay(_localConfig[key]!).toString();
-                    }
-                  });
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Show in Minutes'),
+                  Switch(
+                    value: _showInMinutes,
+                    onChanged: (value) {
+                      setState(() {
+                        _showInMinutes = value;
+                        _localConfig['showInMinutes'] = value ? 1 : 0;
+                        // Update all form fields to reflect the new unit
+                        for (final key in _localConfig.keys) {
+                          if (key != 'showInMinutes') { // Skip showInMinutes for text controllers
+                            _controllers[key]?.text = _convertToDisplay(_localConfig[key]!).toString();
+                          }
+                        }
+                      });
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 16),
               _buildNumberField(
@@ -120,6 +155,10 @@ class _PrepWndState extends State<PrepWnd> {
         ),
       ),
       actions: [
+        TextButton(
+          onPressed: _resetToDefaults,
+          child: const Text('Reset to Defaults'),
+        ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: const Text('Cancel'),

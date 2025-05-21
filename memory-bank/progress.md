@@ -19,6 +19,12 @@
    - ✅ Dependencies configuration
    - ✅ Git hooks setup
 
+4. Configuration Window
+   - ✅ Configuration dialog for Pomodoro and blink settings
+   - ✅ Toggle display units (minutes/seconds)
+   - ✅ Reset to default settings
+   - ✅ Persistent configuration saving
+
 ## In Progress
 1. Testing
    - 🔄 Unit tests for core functionality
@@ -26,7 +32,6 @@
    - 🔄 Pre-commit hook implementation
 
 2. Features
-   - 🔄 Settings customization
    - 🔄 Sound notifications
    - 🔄 System tray integration
 

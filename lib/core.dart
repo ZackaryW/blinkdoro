@@ -90,6 +90,9 @@ class BlinkDoro {
     _currentRunType = 0;
     _currentTime = pomodoroWorkTime;
     onTick?.call(_currentTime);
+    if (_isRunning) {
+      _scheduleNextBlink();
+    }
   }
 
   // Helper methods
@@ -120,6 +123,7 @@ class BlinkDoro {
 
   void _handleTimerComplete() {
     _timer?.cancel();
+    _isRunning = false;  // Ensure timer is stopped
     switch (_currentRunType) {
       case 0: // Work completed
         _currentPomodoroCount++;
@@ -143,15 +147,18 @@ class BlinkDoro {
 
   // Blink reminder methods
   void _scheduleNextBlink() {
-    if (!_isRunning || _isBlinkActive) return;
+    if (!_isRunning || _isBlinkActive || _currentRunType != 0) return;
     
     final random = Random();
     final nextBlink = blinkRangeLow + 
         random.nextInt(blinkRangeHigh - blinkRangeLow);
     
+    // Don't schedule if the next blink would occur after the current session ends
+    if (nextBlink >= _currentTime) return;
+    
     _blinkTimer?.cancel();
     _blinkTimer = Timer(Duration(seconds: nextBlink), () {
-      if (_isRunning && !_isBlinkActive) {
+      if (_isRunning && !_isBlinkActive && _currentRunType == 0) {
         _triggerBlink();
       }
     });

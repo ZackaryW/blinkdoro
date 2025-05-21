@@ -21,6 +21,12 @@ BlinkDoro is a Pomodoro timer application with an integrated blink reminder syst
    - Intuitive control buttons
    - Desktop-optimized window size (400x600)
 
+4. Configuration Window
+   - Edit Pomodoro durations (work, short break, long break, sessions until long break)
+   - Configure blink settings (min/max interval, duration)
+   - Toggle display units between seconds and minutes
+   - Persistent storage of configurations
+
 ## Technical Stack
 - Flutter for cross-platform development
 - Material Design 3 for UI components

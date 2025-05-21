@@ -149,7 +149,7 @@ class _BlinkDoroGUIState extends State<BlinkDoroGUI> {
           
           // Buttons section
           Container(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
             color: _isBlinkActive 
                 ? Colors.black.withAlpha(179)
                 : Theme.of(context).scaffoldBackgroundColor,

@@ -1,65 +1,59 @@
 # Active Context
 
 ## Current Focus
-- Implementing core Pomodoro timer functionality
-- Building user interface with Material Design 3
-- Setting up desktop window management
-- Creating configuration window for Pomodoro and blink settings
+- UI layout improvements
+- File organization
+- Button positioning
 
 ## Recent Changes
-1. Core Timer Implementation
-   - Added Pomodoro timer logic
-   - Implemented blink reminder system
-   - Added state management for timer controls
+1. File Structure
+   - Renamed `prepWnd.dart` to `prep_wnd.dart`
+   - Reorganized file structure for better clarity
 
-2. User Interface
-   - Created clean, minimal UI design
-   - Implemented timer display
-   - Added control buttons (Start, Pause, Resume, Reset, Skip)
-   - Fixed button visibility logic
+2. UI Improvements
+   - Adjusted button section padding
+   - Modified button positioning
+   - Maintained dimming effect consistency
+   - Improved visual hierarchy
 
-3. Desktop Integration
-   - Added window size management
-   - Set fixed window dimensions (400x600)
-   - Implemented window centering
-
-4. Configuration System
-   - Added prepWnd.dart for settings management
-   - Implemented time unit toggle (seconds/minutes)
-   - Created configuration persistence
+3. Button Section
+   - Changed padding from (20, 0, 20, 40) to (20, 20, 20, 20)
+   - Raised buttons up by 20 pixels
+   - Maintained consistent dimming effect
+   - Preserved button functionality
 
 ## Active Decisions
-1. Window Management
-   - Using `window_manager` package for desktop control
-   - Fixed window size for better UX
-   - Window centering for consistent appearance
+1. UI Layout
+   - Consistent padding across sections
+   - Balanced button positioning
+   - Maintained visual feedback during blinks
+   - Preserved responsive design
 
-2. UI/UX Design
-   - Material Design 3 for modern look
-   - Simple, focused interface
-   - Clear visual hierarchy
-
-3. Configuration Management
-   - Store all time values in seconds internally
-   - Allow user to view/edit in preferred units
-   - Separate configuration window for better organization
+2. File Organization
+   - Using snake_case for file names
+   - Clear separation of concerns
+   - Improved code maintainability
 
 ## Next Steps
-1. Testing
-   - Implement comprehensive test suite
-   - Add widget tests for UI components
-   - Set up pre-commit hooks
+1. UI Polish
+   - Review button spacing
+   - Check visual consistency
+   - Verify responsive behavior
 
-2. Features
-   - Add settings for customizing timer durations
-   - Implement sound notifications
-   - Add system tray integration
-   - Complete configuration window implementation
+2. Code Organization
+   - Review file structure
+   - Update documentation
+   - Check naming conventions
 
-3. Polish
-   - Add animations for state transitions
-   - Improve visual feedback
-   - Add keyboard shortcuts
+## Learnings
+1. UI Design
+   - Padding adjustments affect overall layout
+   - Consistent spacing improves visual appeal
+   - Dimming effects need careful management
+
+2. Code Organization
+   - Clear file naming improves maintainability
+   - Consistent conventions aid collaboration
 
 ## Current Challenges
 - Ensuring accurate timer functionality
